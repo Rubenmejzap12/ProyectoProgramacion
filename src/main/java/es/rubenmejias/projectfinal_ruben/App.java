@@ -60,7 +60,7 @@ public class App extends Application {
         //Desplazar la pantala ala izquierda
         Timeline fondoScroll = new Timeline(
                   new KeyFrame(Duration.seconds(0.017), (ActionEvent ae) -> {
-                      System.out.println("dentro del timeline");
+                      System.out.println("Dentro del timeline");
                       fondo1X = fondo1X -1;
                       System.out.println(fondo1X);
                       fondo1.setLayoutX(fondo1X);
