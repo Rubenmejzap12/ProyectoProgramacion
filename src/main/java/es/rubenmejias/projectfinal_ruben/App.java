@@ -7,6 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.UP;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -20,43 +23,42 @@ public class App extends Application {
     
     
     int PantallaX = 800;
-    int PantallaY = 450;
+    int PantallaY = 400;
     ImageView fondo1;
     ImageView fondo2;
     int fondo1X = 0;
     int fondo2X = 800;
-    ImageView personaje1;
-    int personajeX = 100;
-    int personajeY = 0;
-    
+    ImageView aguila1;
+    int aguilaX = 0;
+    int aguilaY = 0;
+    int stickCurrentSpeed = 0;
     
     @Override
     public void start(Stage stage) {
         Pane root = new Pane();
         Scene scene = new Scene (root, PantallaX, PantallaY);
-        stage.setTitle("BosqueMaldito");
+        stage.setTitle("AguilaDepredadora");
         stage.setScene(scene);
         stage.show();
         
         //Imagen fondo
-        Image fondoImg = new Image (getClass().getResourceAsStream("/images/suelo1.jpg"));
+        Image fondoImg = new Image (getClass().getResourceAsStream("/images/pradera.jpg"));
         fondo1 = new ImageView(fondoImg);
         root.getChildren().add(fondo1);
         fondo2 = new ImageView(fondoImg);
         root.getChildren().add(fondo2);
         
-        
         fondo1.setLayoutX(fondo1X);
         fondo2.setLayoutX(fondo2X);
         
-        
         //Imagen personaje
-        Image personajeImg = new Image (getClass().getResourceAsStream("/images/personaje.gif"));
-        personaje1 = new ImageView(personajeImg);
-        root.getChildren().add(personaje1);
+        Image personajeImg = new Image (getClass().getResourceAsStream("/images/aguila.gif"));
+        aguila1 = new ImageView(personajeImg);
+        root.getChildren().add(aguila1);
         
-        personaje1.setLayoutX(personajeX);
-        personaje1.setLayoutX(personajeY);
+        aguila1.setLayoutX(aguilaX);
+        aguila1.setLayoutY(aguilaY);
+
         //Desplazar la pantala ala izquierda
         Timeline fondoScroll = new Timeline(
                   new KeyFrame(Duration.seconds(0.017), (ActionEvent ae) -> {
@@ -72,9 +74,41 @@ public class App extends Application {
                           fondo2X = 800;
                       }
                   })
+        
           );
+        Timeline aguilaScroll = new Timeline(
+                  new KeyFrame(Duration.seconds(0.017), (ActionEvent ae) -> {
+                      scene.setOnKeyPressed((KeyEvent event) -> {
+                      aguila1.setLayoutX(aguilaX);
+                      aguila1.setLayoutY(aguilaY);
+                      switch(event.getCode()) {
+                      case UP:
+                        //PULSADA TECLA ARRIBA
+                        aguilaY = aguilaY -3;
+                        break;
+                      case DOWN:
+                        //PULSADA TECLA ABAJO
+                        aguilaY = aguilaY +3;
+                        break;
+                      case RIGHT:
+                        //PULSADA TECLA DERECHA
+                        aguilaX = aguilaX +3;
+                        break;
+                      case LEFT:
+                        //PULSADA TECLA IZQUIERDA
+                        aguilaX = aguilaX -3;
+                        break;
+              }
+          });  
+                  })
+        
+          );
+          //EJECUTA MOVIMIENTO FONDO
           fondoScroll.setCycleCount(Timeline.INDEFINITE);
           fondoScroll.play(); // EJECUTAR EL TIMELINE
+          //EJECUTA MOVIMIENTO AGUILA
+          aguilaScroll.setCycleCount(Timeline.INDEFINITE);
+          aguilaScroll.play(); // EJECUTAR EL TIMELINE
           
     }
 
