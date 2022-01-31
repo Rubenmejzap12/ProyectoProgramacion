@@ -45,7 +45,8 @@ public class App extends Application {
         Image fondoImg = new Image (getClass().getResourceAsStream("/images/pradera.jpg"));
         fondo1 = new ImageView(fondoImg);
         root.getChildren().add(fondo1);
-        fondo2 = new ImageView(fondoImg);
+        Image fondoImg1 = new Image (getClass().getResourceAsStream("/images/pradera2.jpg"));
+        fondo2 = new ImageView(fondoImg1);
         root.getChildren().add(fondo2);
         
         fondo1.setLayoutX(fondo1X);
@@ -61,10 +62,8 @@ public class App extends Application {
 
         //Desplazar la pantala ala izquierda
         Timeline fondoScroll = new Timeline(
-                  new KeyFrame(Duration.seconds(0.017), (ActionEvent ae) -> {
-                      System.out.println("Dentro del timeline");
+                  new KeyFrame(Duration.seconds(0.004), (ActionEvent ae) -> {
                       fondo1X = fondo1X -1;
-                      System.out.println(fondo1X);
                       fondo1.setLayoutX(fondo1X);
                       fondo2X = fondo2X -1;
                       fondo2.setLayoutX(fondo2X);
@@ -76,6 +75,7 @@ public class App extends Application {
                   })
         
           );
+        //Movimiento personaje con teclas
         Timeline aguilaScroll = new Timeline(
                   new KeyFrame(Duration.seconds(0.017), (ActionEvent ae) -> {
                       scene.setOnKeyPressed((KeyEvent event) -> {
@@ -84,21 +84,29 @@ public class App extends Application {
                       switch(event.getCode()) {
                       case UP:
                         //PULSADA TECLA ARRIBA
-                        aguilaY = aguilaY -3;
+                        if (aguilaY >= 0){
+                            aguilaY = aguilaY -3;
+                        }
                         break;
                       case DOWN:
                         //PULSADA TECLA ABAJO
-                        aguilaY = aguilaY +3;
+                        if (aguilaY <= 220){
+                            aguilaY = aguilaY +3;
+                          }
                         break;
                       case RIGHT:
                         //PULSADA TECLA DERECHA
+                        if (aguilaX <= 540){
                         aguilaX = aguilaX +3;
+                          }
                         break;
                       case LEFT:
                         //PULSADA TECLA IZQUIERDA
+                        if (aguilaX >= 0){
                         aguilaX = aguilaX -3;
+                          }
                         break;
-              }
+                       }
           });  
                   })
         
