@@ -5,7 +5,6 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +14,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,88 +34,35 @@ public class App extends Application {
     ImageView fondo2;
     int fondo1X = 0;
     int fondo2X = 800;
-    ImageView aguila1;
+    ImageView aguila;
     int aguilaX = 0;
     int aguilaY = 0;
     int stickCurrentSpeed = 0;
-    ImageView oveja1;
-    int ovejaX = 0;
-    int ovejaY = 0;
-    
+    ImageView oveja;
+    int ovejaX = 700;
+    int ovejaY = 250;
+    ImageView meteorito1;
+    int meteorito1X = 700;
+    int meteorito1Y = 200;
+    ImageView meteorito2;
+    int meteorito2X = 700;
+    int meteorito2Y = 150;
+    ImageView meteorito3;
+    int meteorito3X = 700;
+    int meteorito3Y = 50;
     
     final int TEXT_SIZE = 24;
-    Text textScore;
+    //Text textScore;
     Pane root = new Pane();
     
     @Override
     public void start(Stage stage) {
-        Pane root = new Pane();
+       
         Scene scene = new Scene (root, PantallaX, PantallaY); // Creacion ventana juego con las medidas de ancho y alto
         stage.setTitle("AguilaDepredadora"); //Titulo que aparece en ventana
         stage.setScene(scene);
         stage.show();
-       
-        
-        
-        
-         //LAYOUTS PARA MOSTRAR PUNTUACIONES
 
-          //Layout principal
-          HBox paneScores = new HBox();
-          paneScores. setTranslateY(20) ;
-          paneScores. setMinWidth(PantallaX) ;
-          paneScores. setAlignment (Pos.CENTER) ;
-          paneScores. setSpacing(100) ;
-          root.getChildren().add(paneScores) ;
-
-          //Layout para puntuación actual
-          HBox paneCurrentScore = new HBox();
-          paneCurrentScore. setSpacing(10) ;
-          paneScores.getChildren().add(paneCurrentScore) ;
-
-          //Layout para puntuación maxima
-          HBox paneHighScore = new HBox();
-          paneHighScore. setSpacing(10) ;
-          paneScores.getChildren().add(paneHighScore) ;
-
-          //Texto de etiqueta para la puntuación
-          Text textTitleScore = new Text("Score:");
-          textTitleScore.setFont(Font.font(TEXT_SIZE));
-          textTitleScore.setFill(Color.BLACK);
-
-          //Texto para la puntuacion
-          Text textScore = new Text("0");
-          textScore. setFont (Font. font (TEXT_SIZE));
-          textScore. setFill(Color.BLACK) ;
-
-          //Texto de etiqueta para la puntuación maxima
-          Text textTitleHighScore = new Text("Max.Score:");
-          textTitleHighScore. setFont (Font. font (TEXT_SIZE));
-          textTitleHighScore.setFill(Color.BLACK) ;
-
-          //Texto para la puntuación maxima
-          Text textHighScore = new Text("0");
-          textHighScore. setFont (Font. font (TEXT_SIZE)) ;
-          textHighScore. setFill(Color.BLACK) ;
-          paneCurrentScore.getChildren().add(textTitleScore) ;
-          paneCurrentScore.getChildren().add(textScore) ;
-          paneHighScore.getChildren().add(textTitleHighScore);
-          paneHighScore.getChildren().add(textHighScore);
-
-          
-        
-        
-        // Imagen 1
-        ImageView oveja1 = new ImageView();
-        Rectangle rectZona1 = new Rectangle(226, 138); // Debe englobar a la imagen
-        Group groupZona1 = new Group();
-        groupZona1.getChildren().addAll(oveja1, rectZona1);
-        // Hacer invisible el rectángulo
-        rectZona1.setVisible(false);
- 
-        
-        
-        
         //Imagen fondo
         Image fondoImg = new Image (getClass().getResourceAsStream("/images/pradera.jpg"));
         fondo1 = new ImageView(fondoImg);
@@ -127,22 +72,92 @@ public class App extends Application {
         Image fondoImg1 = new Image (getClass().getResourceAsStream("/images/pradera2.jpg"));
         fondo2 = new ImageView(fondoImg1);
         root.getChildren().add(fondo2);
-        
         fondo1.setLayoutX(fondo1X);
         fondo2.setLayoutX(fondo2X);
         
-        //Imagen personaje
+          //textScore = new Text("0");
+        
+          //LAYOUTS PARA MOSTRAR PUNTUACIONES
+
+          //Layout principal
+          HBox paneScores = new HBox();
+          paneScores.setTranslateY(20) ;
+          paneScores. setMinWidth(PantallaX) ;
+          paneScores. setAlignment (Pos.CENTER) ;
+          paneScores. setSpacing(100) ;
+          root.getChildren().add(paneScores) ;
+          
+
+          //Layout para puntuacién actual
+          HBox paneCurrentScore = new HBox();
+          paneCurrentScore. setSpacing(10) ;
+          paneScores.getChildren().add(paneCurrentScore) ;
+
+          //Layout para puntuacién mixima
+          HBox paneHighScore = new HBox();
+          paneHighScore. setSpacing(10) ;
+          paneScores.getChildren().add(paneHighScore) ;
+
+          //Texto de etiqueta para la puntuacién
+          Text textTitleScore = new Text("Score:");
+          textTitleScore.setFont(Font.font(TEXT_SIZE));
+          textTitleScore.setFill(Color.BLACK);
+
+          //Texto para la puntuacin
+          Text textScore = new Text("0");
+          textScore. setFont (Font. font (TEXT_SIZE));
+          textScore. setFill(Color.BLACK) ;
+
+          //Texto de etiqueta para la puntuacién maxima
+          Text textTitleHighScore = new Text("Max.Score:");
+          textTitleHighScore. setFont (Font. font (TEXT_SIZE));
+          textTitleHighScore.setFill(Color.BLACK) ;
+
+          //Texto para la puntuacién mixima
+          Text textHighScore = new Text("0");
+          textHighScore. setFont (Font. font (TEXT_SIZE)) ;
+          textHighScore. setFill(Color.BLACK) ;
+          paneCurrentScore.getChildren().add(textTitleScore) ;
+          paneCurrentScore.getChildren().add(textScore) ;
+          paneHighScore.getChildren().add(textTitleHighScore);
+          paneHighScore.getChildren().add(textHighScore);
+       
+        
+
+        
+        //Imagen aguila
         Image personajeImg = new Image (getClass().getResourceAsStream("/images/aguila.gif"));
-        aguila1 = new ImageView(personajeImg);
-        root.getChildren().add(aguila1);
-        
-        aguila1.setLayoutX(aguilaX);
-        aguila1.setLayoutY(aguilaY);
-        
+        aguila = new ImageView(personajeImg);
+        root.getChildren().add(aguila);
+        aguila.setLayoutX(aguilaX);
+        aguila.setLayoutY(aguilaY);
         
         
+        //Imagen oveja
+        Image ovejaImg = new Image (getClass().getResourceAsStream("/images/oveja.gif"));
+        
+        oveja = new ImageView(ovejaImg);
+        root.getChildren().add(oveja);
+        oveja.setLayoutX(ovejaX);
+        oveja.setLayoutY(ovejaY);
         
         
+        //Imagen aguila
+        Image meteoritoImg = new Image (getClass().getResourceAsStream("/images/meteorito.gif"));
+        meteorito1 = new ImageView(meteoritoImg);
+        root.getChildren().add(meteorito1);
+        meteorito1.setLayoutX(meteorito1X);
+        meteorito1.setLayoutY(meteorito1Y);
+        
+        meteorito2 = new ImageView(meteoritoImg);
+        root.getChildren().add(meteorito2);
+        meteorito2.setLayoutX(meteorito2X);
+        meteorito2.setLayoutY(meteorito2Y);
+        
+        meteorito3 = new ImageView(meteoritoImg);
+        root.getChildren().add(meteorito3);
+        meteorito3.setLayoutX(meteorito3X);
+        meteorito3.setLayoutY(meteorito3Y);
 
         //Desplazar la pantala a la izquierda para que paresca infinita
         Timeline fondoScroll = new Timeline(
@@ -160,6 +175,8 @@ public class App extends Application {
                   })
         
           );
+        
+        
         //EJECUTA MOVIMIENTO FONDO
         fondoScroll.setCycleCount(Timeline.INDEFINITE);
         fondoScroll.play(); // EJECUTAR EL TIMELINE
@@ -169,8 +186,8 @@ public class App extends Application {
         Timeline aguilaScroll = new Timeline(
                   new KeyFrame(Duration.seconds(0.005), (ActionEvent ae) -> {
                       scene.setOnKeyPressed((KeyEvent event) -> {
-                      aguila1.setLayoutX(aguilaX);
-                      aguila1.setLayoutY(aguilaY);
+                      aguila.setLayoutX(aguilaX);
+                      aguila.setLayoutY(aguilaY);
                       switch(event.getCode()) {
                       case UP:
                         //PULSADA TECLA ARRIBA
