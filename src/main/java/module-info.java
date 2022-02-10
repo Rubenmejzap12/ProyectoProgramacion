@@ -1,4 +1,4 @@
-module es.rubenmejias.projectfinal_ruben {
+module es.ruben.mejias.aguila_depredadora {
     requires javafx.controls;
-    exports es.rubenmejias.projectfinal_ruben;
+    exports es.ruben.mejias.aguila_depredadora;
 }
